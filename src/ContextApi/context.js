@@ -23,7 +23,6 @@ class AppProvider extends Component {
   }
 
   render() {
-    console.log(this.state.chatMessages);
     return (
       <AppContext.Provider value = {{ 
         ...this.state,

@@ -15,48 +15,58 @@ import { UserAvtar, Message, MessageBox } from "../../Components";
 import { StylePrimaryButton,StyleSpan } from "../../Style";
 
 const Home = (props) => {
+
 	return (
 		<StyleChatContainer>
 			<AppConsumer>
 				{context => {
+		        	console.log(context.chatMessages)
 	        		return(
-	        			<React.Fragment>
+	        			<React.Fragment>	
 		        			{(context.chatMessages) ? 
 		        				<React.Fragment>
-									<StyleChatHeader>
-										<UserAvtar/>
-										
-										<StyleChatDetails>
-											<StyleUserName bold> 919845380809 </StyleUserName>
-											
-											<StyleDetails> 
-												<span>Picked:</span> Advisor | 
-												<span> Viewing: </span> Advisor002, Advisor005
-											</StyleDetails>
-										</StyleChatDetails>
+			        				{context.chatMessages.map(message => {
+										return(
+					        				<React.Fragment key = {message.id}>
+												<StyleChatHeader>
+													<UserAvtar/>
+													
+													<StyleChatDetails>
+							        					<StyleUserName bold key={message.id}> {message.name} </StyleUserName>
+														
+														<StyleDetails> 
+															<span>Picked:</span> Advisor | 
+															<span> Viewing: </span> Advisor002, Advisor005
+														</StyleDetails>
+													</StyleChatDetails>
 
-										<StyleChatControls>
-											<StylePrimaryButton>
-												<i className="icon icon-volume-off font-20"></i> 
-											</StylePrimaryButton>
-											<StylePrimaryButton> 
-												<i className="icon fa fa-paperclip font-20"></i> 
-											</StylePrimaryButton>
-											<StylePrimaryButton>
-												<i className="icon icon-options-vertical font-20"></i>
-											</StylePrimaryButton>
-										</StyleChatControls>
-									</StyleChatHeader>
-				        				
-									<StyleChatBody>
-										<Message />
-										<Message sender/>
-										<Message />
-										<Message />
-										<Message sender/>
-									</StyleChatBody>
-									<MessageBox />
+													<StyleChatControls>
+														<StylePrimaryButton>
+															<i className="icon icon-volume-off font-20"></i> 
+														</StylePrimaryButton>
+														<StylePrimaryButton> 
+															<i className="icon fa fa-paperclip font-20"></i> 
+														</StylePrimaryButton>
+														<StylePrimaryButton>
+															<i className="icon icon-options-vertical font-20"></i>
+														</StylePrimaryButton>
+													</StyleChatControls>
+												</StyleChatHeader>
+							        				
+												<StyleChatBody>
+													<Message message = {message}/>
+													<Message sender/>
+													<Message />
+													<Message />
+													<Message sender/>
+												</StyleChatBody>
+
+												<MessageBox />
+											</React.Fragment>
+										)
+						    		})}
 								</React.Fragment>
+
 								:
 								<StyleEmptyChat>
 									<StyleSpan size = {"2rem"} weight = {'300'} color= {'#2b2b2b'}>

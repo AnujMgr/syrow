@@ -9,6 +9,7 @@ import {
 import { UserAvtar } from "../../Components";
 
 const Message = (props) => {
+	console.log(props.message);
 	return (
 		<StyleMessageContainer sender = { props.sender }>
 			<UserAvtar />

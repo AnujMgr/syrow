@@ -3,10 +3,19 @@
     {
       "id": "1",
       "name": "9841469076",
-      "message": [
-        "What we actually want is to create separate ",
-        "What we actually want is to create separate ",
-        "What we actually want is to create separate"
+      "message":[ 
+        {
+          "id":  "17",
+          "user": "Ryan Smith",
+          "text": "This is an example of JSON",
+          "time": "04:41"
+        },
+        {
+          "id":  "18",
+          "user": "Ryan Smith",
+          "text": "Here is another Element",
+          "time": "04:41"
+        } 
       ]
     }, 
     {
