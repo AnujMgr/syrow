@@ -6,17 +6,21 @@ import {
 	StyleUserName,
 	StyleContactList,
 	StyleSingleContact,
-	StyleChatDetails, 
-	
-
+	StyleChatDetails,
+	StylePannelTrigger 
 } from "./style";
 
 import { UserAvtar } from "../../Components";
-import { StyleSpan,StylePrimaryButton } from "../../Style";
+import { StyleSpan, StylePrimaryButton } from "../../Style";
 
 const ContactList = (props) => {
+
 	return (
-		<StyleContactContainer>
+		<StyleContactContainer isOpen = { props.isOpen }>
+			<StylePannelTrigger onClick = {() => props.toggleContact() } >
+				<i className="ti-angle-left"></i>
+			</StylePannelTrigger>
+
 			<StyleContactHeader>
 				<UserAvtar/>
 				<StyleUserName size = "16px" bold>Advisor</StyleUserName>
@@ -24,7 +28,7 @@ const ContactList = (props) => {
 					<StylePrimaryButton>
 						<i className="icon icon-options-vertical font-20"></i>
 					</StylePrimaryButton>
-					<StylePrimaryButton  title="Attach" onClick = {() => props.showSideNav()}>
+				<StylePrimaryButton title="Attach" onClick = {() => {props.toggleSideNav();props.toggleContact()}}>
 						<i className="btn icon ti-settings font-20"></i>
 					</StylePrimaryButton>
 				</div>
@@ -39,7 +43,7 @@ const ContactList = (props) => {
 									<StyleSingleContact key= {contact.id}>
 										<UserAvtar />
 
-										<StyleChatDetails onClick ={() => context.handleChatMessages(contact.id) }>
+										<StyleChatDetails onClick = {() => context.handleChatMessages(contact.id) }>
 											<div className="d-flex-sb">
 												<StyleUserName 
 													size = { '0.9rem' } 

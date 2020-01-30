@@ -1,10 +1,21 @@
 import styled from "styled-components";
 
 export const StyleChatContainer = styled.div`
-	width: 69.5%;
+	width: 69.9%;
 	border-left: 1px solid #dbdbdb;
 	margin: 0 -2px;
 	position: relative;
+	@media only screen and (max-width: 992px){
+    	position: fixed;
+    	width: 100%;
+    	top:0;
+    	bottom: 0;
+    	right: 0;
+    }
+    @media only screen and (max-width: 768px){
+    	width: 100%;
+    	bottom: 0;
+    }
 `;
 
 export const StyleChatHeader = styled.div`
@@ -25,6 +36,9 @@ export const StyleChatBody = styled.div`
 	height: calc(100vh - 203px);
 	overflow-x: hidden;
 	overflow-y: auto;
+	@media only screen and (max-width: 992px){
+		height: calc(100vh - 150px);
+    }
 `;
 
 export const StyleChatDetails = styled.div`
@@ -70,3 +84,4 @@ export const StyleEmptyChat = styled.div`
 	flex-direction: column;
 	justify-content: center
 `;
+

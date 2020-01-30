@@ -2,18 +2,17 @@ import React from "react";
 import { StyleSideNav, StyleSideNavHeader,StyleTitle,StyleSideNavBody } from "./style";
 
 import { ColorOption } from "../../Components";
-import { StylePrimaryButton } from "../../Style";
 
 const SideNav = (props) => {
 	 
 	return (
-		<StyleSideNav width = {props.width}>
+		<StyleSideNav isNavOpen = {props.isNavOpen}>
+			
 			<StyleSideNavHeader>
 				<StyleTitle> Theme Modify </StyleTitle>
-
-				<StylePrimaryButton onClick = {() => props.hideSideNav()} >
+				<span onClick = {() => props.toggleSideNav()} >
 					<i className="ti-close right-side-toggle"></i>
-				</StylePrimaryButton>
+				</span>
 			</StyleSideNavHeader>
 
 			<StyleSideNavBody>

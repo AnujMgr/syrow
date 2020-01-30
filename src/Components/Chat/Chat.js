@@ -12,7 +12,7 @@ import {
 import { AppConsumer } from "../../ContextApi/context";
 
 import { UserAvtar, Message, MessageBox } from "../../Components";
-import { StylePrimaryButton,StyleSpan } from "../../Style";
+import { StylePrimaryButton, StyleSpan } from "../../Style";
 
 const Home = (props) => {
 

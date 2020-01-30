@@ -35,7 +35,7 @@ export const StyleLoginBox = styled.div`
 	      font-size: 0.9rem;
 	    }
     }
-    @media only screen and (max-width: 728px){
+    @media only screen and (max-width: 992px){
 	    width: 100%;
 	  }
 `;

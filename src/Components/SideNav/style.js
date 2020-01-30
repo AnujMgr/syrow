@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyleSideNav = styled.div`	
 	height: 100%;
-	width: ${props => props.width};
+	width: ${props => props.isNavOpen ? '250px' : '0px'};
 	position: fixed;
 	z-index: 1;
 	top: 0;
@@ -10,7 +10,10 @@ export const StyleSideNav = styled.div`
 	background-color: #fff;
 	overflow-x: hidden;
 	transition: 0.5s;
-	box-shadow: 5px 1px 40px rgba(0, 0, 0, 0.1)
+	box-shadow: 5px 1px 40px rgba(0, 0, 0, 0.1);
+	span {
+		cursor: pointer;
+	}
 `;
 
 export const StyleTitle = styled.span`	
@@ -35,3 +38,4 @@ export const StyleSideNavBody = styled.div`
 		padding: 0;
 	}
 `;
+
