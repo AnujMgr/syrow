@@ -5,8 +5,8 @@ import { Chat, ContactList, SideNav } from "../../Components";
 
 const Home = (props) => {
 
-	const [isNavOpen, setNavOpen] = useState(true);
-	const [isOpen, setIsOpen] = useState(true);
+	const [isNavOpen, setNavOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
 	const toggleSideNav = () => {
 		(isNavOpen) ? setNavOpen(false) : setNavOpen(true);
