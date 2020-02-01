@@ -1,4 +1,4 @@
-import React from "react";
+import React , { useState } from "react";
 import { 
 	StyleChatContainer,
 	StyleChatHeader,
@@ -11,16 +11,19 @@ import {
 } from "./style";
 import { AppConsumer } from "../../ContextApi/context";
 
-import { UserAvtar, Message, MessageBox } from "../../Components";
+import { UserAvtar, Message, MessageBox, DragAndDrop } from "../../Components";
 import { StylePrimaryButton, StyleSpan } from "../../Style";
 
 const Home = (props) => {
+	const [isOpen, setIsOpen] = useState(true);
+	const toggleFileUpload = () => {
+		(isOpen) ? setIsOpen(false) : setIsOpen(true)
+	} 
 
 	return (
 		<StyleChatContainer>
 			<AppConsumer>
 				{context => {
-		        	console.log(context.chatMessages)
 	        		return(
 	        			<React.Fragment>	
 		        			{(context.chatMessages) ? 
@@ -29,10 +32,10 @@ const Home = (props) => {
 										return(
 					        				<React.Fragment key = {message.id}>
 												<StyleChatHeader>
-													<UserAvtar/>
+													<UserAvtar />
 													
 													<StyleChatDetails>
-							        					<StyleUserName bold key={message.id}> {message.name} </StyleUserName>
+							        					<StyleUserName bold key = { message.id }> { message.name } </StyleUserName>
 														
 														<StyleDetails> 
 															<span>Picked:</span> Advisor | 
@@ -44,7 +47,7 @@ const Home = (props) => {
 														<StylePrimaryButton>
 															<i className="icon icon-volume-off font-20"></i> 
 														</StylePrimaryButton>
-														<StylePrimaryButton> 
+														<StylePrimaryButton onClick = {() => toggleFileUpload()}> 
 															<i className="icon fa fa-paperclip font-20"></i> 
 														</StylePrimaryButton>
 														<StylePrimaryButton>
@@ -53,20 +56,33 @@ const Home = (props) => {
 													</StyleChatControls>
 												</StyleChatHeader>
 							        				
-												<StyleChatBody>
-													<Message message = {message}/>
-													<Message sender/>
-													<Message />
-													<Message />
-													<Message sender/>
-												</StyleChatBody>
+							        			{(isOpen) ? 
+								        			<React.Fragment>	
+														<StyleChatBody>
+															<Message message = {message}/>
+															<Message sender/>
+															<Message />
+															<Message />
+															<Message sender/>
+														</StyleChatBody>
 
-												<MessageBox />
+														<MessageBox />
+													</React.Fragment>
+													:
+													null 
+												}
+
+												{(!isOpen) ? 
+								        			<React.Fragment>	
+														<DragAndDrop toggleFileUpload = { toggleFileUpload } /> 
+								        			</React.Fragment>	
+													: null
+													}
+												
 											</React.Fragment>
 										)
 						    		})}
 								</React.Fragment>
-
 								:
 								<StyleEmptyChat>
 									<StyleSpan size = {"2rem"} weight = {'300'} color= {'#2b2b2b'}>
@@ -79,7 +95,6 @@ const Home = (props) => {
 										Please Select a chat
 									</StyleSpan>
 								</StyleEmptyChat>
-								
 							}
 						</React.Fragment>
 					)}}

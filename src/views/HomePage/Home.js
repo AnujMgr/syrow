@@ -9,7 +9,7 @@ const Home = (props) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggleSideNav = () => {
-		(isNavOpen) ? setNavOpen(false) : setNavOpen(true);
+		(isNavOpen) ? setNavOpen(false) : setNavOpen(true)
 	}
 
 	const toggleContact = () => {
@@ -27,11 +27,12 @@ const Home = (props) => {
 			<StylePannelTrigger onClick = {() => toggleContact() }>
 				<i className="ti-angle-right"></i>
 			</StylePannelTrigger>
-			<Chat />
+			<Chat/>
 			<SideNav 
 				isNavOpen = { isNavOpen } 
 				toggleSideNav = { toggleSideNav }
 			/> 
+			
 
 		</StyleWrapper>
 	);

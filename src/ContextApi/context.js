@@ -23,6 +23,7 @@ class AppProvider extends Component {
   }
 
   render() {
+    console.log("i am context");
     return (
       <AppContext.Provider value = {{ 
         ...this.state,

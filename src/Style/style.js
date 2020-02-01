@@ -20,10 +20,11 @@ export const StylePrimaryButton = styled.button`
 
 export const StyleSecondaryButton = styled.button`	
 	border: 0;
-	padding: 0;
-	margin: 0;
-	background: 0 0;
+	padding: ${props => props.padding ? props.padding : "10px"};
+	margin: ${props => props.margin ? props.margin : "10px"};
+	background: ${props => props.bgColor ? props.bgColor : "#fff0"};
 	outline: none;
 	cursor: pointer;
 	font-family: inherit;
+	color: ${props => props.color ? props.color : null };
 `;
