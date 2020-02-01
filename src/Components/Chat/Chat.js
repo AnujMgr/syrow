@@ -44,10 +44,10 @@ const Home = (props) => {
 													</StyleChatDetails>
 
 													<StyleChatControls>
-														<StylePrimaryButton>
+														<StylePrimaryButton >
 															<i className="icon icon-volume-off font-20"></i> 
 														</StylePrimaryButton>
-														<StylePrimaryButton onClick = {() => toggleFileUpload()}> 
+														<StylePrimaryButton title = "Add Files" onClick = {() => toggleFileUpload()}> 
 															<i className="icon fa fa-paperclip font-20"></i> 
 														</StylePrimaryButton>
 														<StylePrimaryButton>

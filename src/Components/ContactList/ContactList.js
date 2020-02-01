@@ -1,4 +1,4 @@
-import React from "react";
+import React , { useState } from "react";
 import { AppConsumer } from "../../ContextApi/context";
 import { 
 	StyleContactContainer, 
@@ -14,6 +14,11 @@ import { UserAvtar } from "../../Components";
 import { StyleSpan, StylePrimaryButton } from "../../Style";
 
 const ContactList = (props) => {
+	
+	const [isActive, setActive] = useState(true);
+	const handleActiveChat = (id) => {
+		setActive(id)
+	}
 
 	return (
 		<StyleContactContainer isOpen = { props.isOpen }>
@@ -28,7 +33,9 @@ const ContactList = (props) => {
 					<StylePrimaryButton>
 						<i className="icon icon-options-vertical font-20"></i>
 					</StylePrimaryButton>
-				<StylePrimaryButton title="Attach" onClick = {() => {props.toggleSideNav();props.toggleContact()}}>
+				<StylePrimaryButton 
+					title="Settings" 
+					onClick = {() => {props.toggleSideNav();props.toggleContact()}}>
 						<i className="btn icon ti-settings font-20"></i>
 					</StylePrimaryButton>
 				</div>
@@ -39,11 +46,13 @@ const ContactList = (props) => {
 						{context => {
 	        				return(
 	        				<React.Fragment>
-	        				 	{context.contacts.map(contact => (
-									<StyleSingleContact key= {contact.id}>
+	        				 	{context.contacts.map((contact,index) => (
+									<StyleSingleContact 
+										active = {(index === isActive ) ? true : false } 
+										key = {contact.id}>
 										<UserAvtar />
 
-										<StyleChatDetails onClick = {() => context.handleChatMessages(contact.id) }>
+										<StyleChatDetails onClick = {() => {context.handleChatMessages(contact.id);handleActiveChat( index ) }}>
 											<div className="d-flex-sb">
 												<StyleUserName 
 													size = { '0.9rem' } 

@@ -8,7 +8,7 @@ const Login = (props) => {
 		<StyleLoginContainer>
 			<StyleLoginBox>
 				<StyleImgContainer>
-					<img src="front-login-register.jpg" alt= "Logo"/>
+					<img src="sy1.png" alt= "Logo"/>
 					<StyleSpan size={ '14px' } color= {'#2b2b2b'}> WELCOME TO SYROW </StyleSpan>
 				</StyleImgContainer>
 				<StyleInputContainer>

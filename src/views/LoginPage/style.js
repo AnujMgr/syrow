@@ -35,7 +35,7 @@ export const StyleLoginBox = styled.div`
 	      font-size: 0.9rem;
 	    }
     }
-    @media only screen and (max-width: 992px){
+    @media only screen and (max-width: 600px){
 	    width: 100%;
 	  }
 `;
@@ -46,9 +46,9 @@ export const StyleImgContainer = styled.div`
 	align-items: center;
 	width: 100%;
 	img {
-		width: 120px;
-		height: 120px
-		margin-bottom: 20px;
+		width: auto;
+		height: 60px
+		margin: 20px 0px;
 	}
 `;
 

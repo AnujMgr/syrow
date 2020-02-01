@@ -46,7 +46,7 @@ export const StyleUserName = styled.span`
 	color: ${props => props.color ? props.color  : "black"};
 `;
 
-export const StyleContactList = styled.div`
+export const StyleContactList = styled.ul`
 	font-size: 18px;
 	list-style: none;
 	padding-left: 20px;
@@ -56,9 +56,11 @@ export const StyleContactList = styled.div`
 export const StyleSingleContact = styled.li`
 	font-size: 18px;
 	font-weight: 500;
-	display: flex;
+	display: flex; 
 	cursor: pointer;
 	padding: 4px 0px; 
+	border-inline-end: ${props => props.active ? 'medium solid orange' : null}
+	background-color: ${props => props.active ? 'antiquewhite' : null}
 `;
 
 export const StyleChatDetails = styled.div`
@@ -66,6 +68,7 @@ export const StyleChatDetails = styled.div`
 	flex-direction: column;
 	padding: 4px 10px;
 	flex-grow: 1;
+
 `;
 
 
