@@ -7,18 +7,34 @@ import {
 	StyleContactList,
 	StyleSingleContact,
 	StyleChatDetails,
+	StyleDropDown,
+	StyleButtonContainer,
 	StylePannelTrigger 
 } from "./style";
 
 import { UserAvtar } from "../../Components";
 import { StyleSpan, StylePrimaryButton } from "../../Style";
+import { useAuth } from "../../ContextApi/auth"; 
 
 const ContactList = (props) => {
 	
 	const [isActive, setActive] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
+
 	const handleActiveChat = (id) => {
 		setActive(id)
 	}
+
+	const handleDropdown = () => {
+		(isOpen) ? setIsOpen(false) : setIsOpen(true)
+	}
+
+	const { setAuthTokens } = useAuth();
+
+	function logOut() {
+		setAuthTokens();
+	}
+
 
 	return (
 		<StyleContactContainer isOpen = { props.isOpen }>
@@ -29,16 +45,24 @@ const ContactList = (props) => {
 			<StyleContactHeader>
 				<UserAvtar/>
 				<StyleUserName size = "16px" bold>Advisor</StyleUserName>
-				<div>
-					<StylePrimaryButton>
+				<StyleButtonContainer>
+					<StylePrimaryButton onClick = {() => handleDropdown() }>
 						<i className="icon icon-options-vertical font-20"></i>
 					</StylePrimaryButton>
-				<StylePrimaryButton 
-					title="Settings" 
-					onClick = {() => {props.toggleSideNav();props.toggleContact()}}>
-						<i className="btn icon ti-settings font-20"></i>
+					<StylePrimaryButton 
+						title="Settings" 
+						onClick = {() => { props.toggleSideNav() ;props.toggleContact()}}>
+							<i className="btn icon ti-settings font-20"></i>
 					</StylePrimaryButton>
-				</div>
+
+					<StyleDropDown isOpen = { isOpen }> 
+						<ul>
+
+							<li onClick = {() => logOut() }>
+							<i className="fa fa-power-off"></i> Logout </li>
+						</ul>
+					</StyleDropDown>
+				</StyleButtonContainer>
 			</StyleContactHeader>
 
 				<StyleContactList>

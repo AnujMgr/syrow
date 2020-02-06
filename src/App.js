@@ -1,33 +1,34 @@
-import React, { Component } from 'react';
+import React , { useState }  from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { AppProvider } from "./ContextApi/context";
+import { AuthContext } from "./ContextApi/auth";
+import { PrivateRoute } from "./Modules";
 
 import { Login, Home } from "./views";
 import './App.css';
 
-class App extends Component {
+function App(props) {
   
-  	render() {
-  
-  		function ProductPage({ match }) {
-	    	return (
-	        	<Login productSlug = { match.params.slug }/>
-		    ); 
-		}
+  	const [authTokens, setAuthTokens] = useState();
+  	useState(localStorage.getItem('authTokens') || '');
+	const setTokens = (data) => {
+		localStorage.setItem("tokens", JSON.stringify(data));
+		setAuthTokens(data);
+	}
+  	console.log(authTokens)
+	return (
+		<AuthContext.Provider value = {{  authTokens, setAuthTokens: setTokens  }}>
+    		<BrowserRouter>
+	        	<AppProvider>
+			    	<Switch>
+			        	<Route path = "/login" component = { Login } exact/>
+			        	<PrivateRoute path = "/" component = { Home } />
+			        </Switch>
+	        	</AppProvider>
+      		</BrowserRouter>
+    	 </AuthContext.Provider>
 
-  		return (
-	    	<BrowserRouter>
-        <AppProvider>
-
-		    	<Switch>
-		        	<Route path = "/login" component = { ProductPage } exact/>
-		        	<Route path = "/" component = { Home } exact/>
-		        </Switch>
-        </AppProvider>
-
-	      	</BrowserRouter>
-  		);
-  	}
-}
+		);
+	}
 
 export default App;

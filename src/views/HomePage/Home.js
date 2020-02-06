@@ -4,7 +4,7 @@ import { StyleWrapper,StylePannelTrigger } from "./style";
 import { Chat, ContactList, SideNav } from "../../Components";
 
 const Home = (props) => {
-
+	console.log("i am home")
 	const [isNavOpen, setNavOpen] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -27,13 +27,14 @@ const Home = (props) => {
 			<StylePannelTrigger onClick = {() => toggleContact() }>
 				<i className="ti-angle-right"></i>
 			</StylePannelTrigger>
+
 			<Chat/>
+			
 			<SideNav 
 				isNavOpen = { isNavOpen } 
 				toggleSideNav = { toggleSideNav }
 			/> 
 			
-
 		</StyleWrapper>
 	);
 };

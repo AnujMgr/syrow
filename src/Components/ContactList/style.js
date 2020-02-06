@@ -59,7 +59,7 @@ export const StyleSingleContact = styled.li`
 	display: flex; 
 	cursor: pointer;
 	padding: 4px 0px; 
-	border-inline-end: ${props => props.active ? 'medium solid orange' : null}
+	border-inline-end: ${props => props.active ? 'medium solid orange' : 'medium solid #fff'}
 	background-color: ${props => props.active ? 'antiquewhite' : null}
 `;
 
@@ -90,4 +90,44 @@ export const StylePannelTrigger = styled.div`
 	@media only screen and (max-width: 992px){
 		display: block;
 	}
+`;
+
+export const StyleButtonContainer = styled.div`	
+	position: relative;
+`;
+
+export const StyleDropDown = styled.div`
+  	position: absolute;
+  	visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  	opacity: ${props => props.isOpen ? 1 : 0};
+  	padding: 1%;
+	right: 0;
+	min-width: 160px;
+	padding: 5px 0;
+    padding-bottom: 5px;
+	margin: 2px 0 0;
+    margin-top: 2px;
+	font-size: 14px;
+	text-align: left;
+	list-style: none;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-shadow: 0 6px 12px rgba(0,0,0,.175);
+ 
+  ul {
+  	list-style: none;
+  	padding-left: 0px;
+  	margin: 0px
+  	li {
+  		cursor: pointer
+  		padding: 10px 0px 10px 30px;
+  		:hover {
+  			background-color: #f4ebeb;
+
+  		}
+  	}
+
+  }
 `;
