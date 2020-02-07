@@ -8,6 +8,8 @@ import {
 	StyleSingleContact,
 	StyleChatDetails,
 	StyleDropDown,
+	StyleMessage,
+	StyleNewMsgIndicator,
 	StyleButtonContainer,
 	StylePannelTrigger 
 } from "./style";
@@ -49,15 +51,9 @@ const ContactList = (props) => {
 					<StylePrimaryButton onClick = {() => handleDropdown() }>
 						<i className="icon icon-options-vertical font-20"></i>
 					</StylePrimaryButton>
-					<StylePrimaryButton 
-						title="Settings" 
-						onClick = {() => { props.toggleSideNav() ;props.toggleContact()}}>
-							<i className="btn icon ti-settings font-20"></i>
-					</StylePrimaryButton>
 
 					<StyleDropDown isOpen = { isOpen }> 
 						<ul>
-
 							<li onClick = {() => logOut() }>
 							<i className="fa fa-power-off"></i> Logout </li>
 						</ul>
@@ -79,8 +75,8 @@ const ContactList = (props) => {
 										<StyleChatDetails onClick = {() => {context.handleChatMessages(contact.id);handleActiveChat( index ) }}>
 											<div className="d-flex-sb">
 												<StyleUserName 
-													size = { '0.9rem' } 
-													color="#7d7d7d"> {contact.name} 
+													size = { '0.9rem' }
+													color="black"> {contact.name} 
 												</StyleUserName>
 												<StyleSpan 
 													size = {'0.8rem' } 
@@ -88,14 +84,27 @@ const ContactList = (props) => {
 													weight={'300'}>6:24 PM
 												</StyleSpan>
 											</div>
-											<StyleSpan 
-												size = { '0.9rem' } 
-												color = {'black'}>Oh understood 
-											</StyleSpan>
-											<StyleSpan 
-												size = { '0.6rem' } 
-												color = {'#7d7d7d'}>Syrow(9841000000)
-											</StyleSpan>
+											<div className = "d-flex-sb">
+												<StyleMessage 
+													size = { '0.9rem' } 
+													color = {'black'}>
+													Oh understood 
+												</StyleMessage>
+												<StyleNewMsgIndicator>
+													3
+												</StyleNewMsgIndicator>
+											</div>
+											
+											<div className="d-flex-sb">
+												<StyleSpan 
+													size = { '0.6rem' } 
+													color = {'#7d7d7d'}>Syrow(9841000000)
+												</StyleSpan>
+												<StyleSpan
+													size = { '0.6rem' }
+													color = { 'black' }>Advisor001</StyleSpan>
+											</div>
+											
 										</StyleChatDetails>
 
 									</StyleSingleContact>

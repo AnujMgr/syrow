@@ -9,13 +9,14 @@ import './App.css';
 
 function App(props) {
   
-  	const [authTokens, setAuthTokens] = useState();
-  	useState(localStorage.getItem('authTokens') || '');
+  	const [authTokens, setAuthTokens] = useState(localStorage.getItem('token') || '');
+  	
+	
 	const setTokens = (data) => {
-		localStorage.setItem("tokens", JSON.stringify(data));
+		localStorage.setItem('token', JSON.stringify(data));
 		setAuthTokens(data);
 	}
-  	console.log(authTokens)
+	console.log(authTokens);
 	return (
 		<AuthContext.Provider value = {{  authTokens, setAuthTokens: setTokens  }}>
     		<BrowserRouter>

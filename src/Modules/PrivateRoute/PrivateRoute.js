@@ -3,13 +3,13 @@ import { Route, Redirect } from "react-router-dom";
 import { useAuth } from "../../ContextApi/auth";
 
 function PrivateRoute({ component: Component, ...rest }) {
-  const isAuthenticated = useAuth();
-  console.log(isAuthenticated)
+  const { authTokens } = useAuth();
+
   return (
     <Route
       { ...rest }
       render = { props =>
-        (isAuthenticated.authTokens) ? (
+        authTokens ? (
           <Component {...props} />
         ) 
         : 

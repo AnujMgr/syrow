@@ -46,6 +46,17 @@ export const StyleUserName = styled.span`
 	color: ${props => props.color ? props.color  : "black"};
 `;
 
+export const StyleMessage = styled.span`
+	font-family: "Roboto";
+	font-size: ${props => props.size };
+	color: ${props => props.color };
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	flex-grow: 1;
+	width: 10px;
+`;
+
 export const StyleContactList = styled.ul`
 	font-size: 18px;
 	list-style: none;
@@ -60,7 +71,8 @@ export const StyleSingleContact = styled.li`
 	cursor: pointer;
 	padding: 4px 0px; 
 	border-inline-end: ${props => props.active ? 'medium solid orange' : 'medium solid #fff'}
-	background-color: ${props => props.active ? 'antiquewhite' : null}
+	background-color: ${props => props.active ? 'antiquewhite' : null};
+	border-bottom: 1px solid #f9e1e1;
 `;
 
 export const StyleChatDetails = styled.div`
@@ -69,6 +81,14 @@ export const StyleChatDetails = styled.div`
 	padding: 4px 10px;
 	flex-grow: 1;
 
+`;
+
+export const StyleNewMsgIndicator = styled.span`
+	font-size: 0.8rem;
+	background-color: #74d158;
+	color: #fff;
+	padding: 0px 7px;
+	border-radius: 50%;
 `;
 
 

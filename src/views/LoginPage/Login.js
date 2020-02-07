@@ -13,29 +13,33 @@ const Login = (props) => {
 	const { setAuthTokens } = useAuth();
 	function postLogin() {
 		console.log("postLogin")
-		fetch("https://login24.p.rapidapi.com/login", {
-		method: 'POST',
-		"headers": {
-		"x-rapidapi-host": "login24.p.rapidapi.com",
-		"x-rapidapi-key": "113445f711msh2c137b98966a876p1c79dbjsn93f2e66d6d74",
-		"content-type": "application/x-www-form-urlencoded"
-		},
-			"body": {
-			"password": password,
-			"email": userName
-		},
-		}).then(result => {
-	  	if (result.status === 403) {
-	    	setAuthTokens(true); 
-	    	setLoggedIn(true);
-	  	} else {
-	    	setAuthTokens(false); 
-	    	setIsError(true);
-	  	}
-		}).catch(e => {
-	  		setIsError(true);
-		});
-	}
+		fetch("https://reqres.in/api/login", {
+			method: 'POST',
+		    headers: {
+		      'Accept': 'application/json',
+		      'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify({
+				"email": 'eve.holt@reqres.in',
+				"password" : 'cityslicka' 
+			})
+			
+		}).then(res => {
+			if (res.ok) {
+				return res.json();
+			} else {
+				setAuthTokens(false); 
+	    		setIsError(true);
+			}
+			}).then(json => {
+				setAuthTokens(json);
+	    		setLoggedIn(true);
+			})
+				.catch(error => setIsError(true));
+			}
+
+
+		
 	if (isLoggedIn) {
 		return <Redirect to = "/" />;
 	}
@@ -68,7 +72,7 @@ const Login = (props) => {
 
     			<StyleInputContainer>
 	    			<StyleLoginBtn onClick = { postLogin }>Log In </StyleLoginBtn>
-	    			{(isError) ? <h3>wRONG Email </h3> : null}
+	    			{(isError) ? <h3>Wrong Email or Password </h3> : null }
     			</StyleInputContainer>
 			</StyleLoginBox>
 		</StyleLoginContainer>
