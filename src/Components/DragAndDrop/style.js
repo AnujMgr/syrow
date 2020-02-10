@@ -1,11 +1,17 @@
 import styled from "styled-components";
 
-export const StyleWrapper = styled.div` 
-  height: 100%;
-  width: 100%;
-  position: relative;
+export const StyleWrapper = styled.div`
+  height: 60%;
+  width: 80%;
+  margin: auto;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
 `;
-
 
 export const StyleHeader = styled.div`
   display: flex;
@@ -25,14 +31,14 @@ export const StyleHeader = styled.div`
   }
 `;
 
-export const StyleContainer= styled.div` 
+export const StyleContainer = styled.div`
   padding: 10px 20px;
   height: calc(80vh - 100px);
   overflow-x: hidden;
   overflow-y: auto;
 `;
 
-export const StyleThumbsContainer = styled.div` 
+export const StyleThumbsContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -48,13 +54,12 @@ export const StyleThumb = styled.div`
   height: 100px;
   padding: 4px,
   box-sizing: border-box
-`; 
-
+`;
 
 export const StyleThumbImg = styled.img`
   display: block;
   width: auto;
-  height: 100%
+  height: 100%;
 `;
 
 export const StyleThumbInner = styled.div`
@@ -79,13 +84,12 @@ export const StyleThumbInner = styled.div`
   }
 `;
 
-
 export const StyleFooter = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
   width: 100%;
-  bottom: 70px;
+  bottom: 0;
   height: 50px;
   background: #eee;
 `;
@@ -94,5 +98,3 @@ export const StyleDropArea = styled.div`
   border: 1px dashed #d8d8d8;
   padding: 50px;
 `;
-
-

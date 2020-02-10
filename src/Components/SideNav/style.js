@@ -38,4 +38,3 @@ export const StyleSideNavBody = styled.div`
 		padding: 0;
 	}
 `;
-

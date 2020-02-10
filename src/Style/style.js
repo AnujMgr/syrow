@@ -5,6 +5,8 @@ export const StyleSpan = styled.span`
 	font-size: ${props => props.size ? props.size : "1rem"};
 	font-weight: ${props => props.weight ? props.weight : "400"};
 	width: ${props => props.width ? props.width : null};
+	padding: ${props => props.padding ? props.padding : null}
+	cursor: ${props => props.cursor ? props.cursor :null}
 `;
 
 export const StylePrimaryButton = styled.button`	
@@ -26,5 +28,7 @@ export const StyleSecondaryButton = styled.button`
 	outline: none;
 	cursor: pointer;
 	font-family: inherit;
-	color: ${props => props.color ? props.color : null };
+	color: ${props => props.color ? props.color : '#fff' };
+	box-shadow: 5px 1px 40px rgba(0, 0, 0, 0.1);
+	
 `;

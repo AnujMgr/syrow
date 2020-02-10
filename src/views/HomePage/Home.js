@@ -1,42 +1,20 @@
-import React , { useState }  from "react";
-import { StyleWrapper,StylePannelTrigger } from "./style";
+import React from "react";
+import { StyleWrapper } from "./style";
 
-import { Chat, ContactList, SideNav } from "../../Components";
+import { Chat, ContactList } from "../../Components";
+import { AppProvider } from "../../ContextApi/context";
 
-const Home = (props) => {
-	console.log("i am home")
-	const [isNavOpen, setNavOpen] = useState(false);
-	const [isOpen, setIsOpen] = useState(false);
-
-	const toggleSideNav = () => {
-		(isNavOpen) ? setNavOpen(false) : setNavOpen(true)
-	}
-
-	const toggleContact = () => {
-		(isOpen) ? setIsOpen(false) : setIsOpen(true)
-	}
-	
-	return (
-		<StyleWrapper>
-			<ContactList
-				isOpen = { isOpen }
-				toggleSideNav = { toggleSideNav } 
-				toggleContact = { toggleContact } 
-				/>
-
-			<StylePannelTrigger onClick = {() => toggleContact() }>
-				<i className="ti-angle-right"></i>
-			</StylePannelTrigger>
-
-			<Chat/>
-			
-			<SideNav 
-				isNavOpen = { isNavOpen } 
-				toggleSideNav = { toggleSideNav }
-			/> 
-			
-		</StyleWrapper>
-	);
+const Home = () => {
+  return (
+    <React.Fragment>
+      <StyleWrapper>
+        <AppProvider>
+          <ContactList />
+          <Chat />
+        </AppProvider>
+      </StyleWrapper>
+    </React.Fragment>
+  );
 };
 
 export default Home;

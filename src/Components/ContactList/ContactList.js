@@ -1,122 +1,27 @@
-import React , { useState } from "react";
-import { AppConsumer } from "../../ContextApi/context";
-import { 
-	StyleContactContainer, 
-	StyleContactHeader, 
-	StyleUserName,
-	StyleContactList,
-	StyleSingleContact,
-	StyleChatDetails,
-	StyleDropDown,
-	StyleMessage,
-	StyleNewMsgIndicator,
-	StyleButtonContainer,
-	StylePannelTrigger 
-} from "./style";
+import React, { useState } from "react";
+import { StyleContactContainer } from "./style";
+import ContactListHeader from "./ContactListHeader";
+import ContactListContainer from "./ContactListContainer";
 
-import { UserAvtar } from "../../Components";
-import { StyleSpan, StylePrimaryButton } from "../../Style";
-import { useAuth } from "../../ContextApi/auth"; 
+const ContactList = () => {
+  const [isContactOpen, setContactOpen] = useState(false);
 
-const ContactList = (props) => {
-	
-	const [isActive, setActive] = useState(true);
-	const [isOpen, setIsOpen] = useState(false);
+  const toggleContact = () => {
+    isContactOpen ? setContactOpen(false) : setContactOpen(true);
+  };
+  console.log("i am Contact List");
 
-	const handleActiveChat = (id) => {
-		setActive(id)
-	}
-
-	const handleDropdown = () => {
-		(isOpen) ? setIsOpen(false) : setIsOpen(true)
-	}
-
-	const { setAuthTokens } = useAuth();
-
-	function logOut() {
-		setAuthTokens();
-	}
-
-
-	return (
-		<StyleContactContainer isOpen = { props.isOpen }>
-			<StylePannelTrigger onClick = {() => props.toggleContact() } >
-				<i className="ti-angle-left"></i>
-			</StylePannelTrigger>
-
-			<StyleContactHeader>
-				<UserAvtar/>
-				<StyleUserName size = "16px" bold>Advisor</StyleUserName>
-				<StyleButtonContainer>
-					<StylePrimaryButton onClick = {() => handleDropdown() }>
-						<i className="icon icon-options-vertical font-20"></i>
-					</StylePrimaryButton>
-
-					<StyleDropDown isOpen = { isOpen }> 
-						<ul>
-							<li onClick = {() => logOut() }>
-							<i className="fa fa-power-off"></i> Logout </li>
-						</ul>
-					</StyleDropDown>
-				</StyleButtonContainer>
-			</StyleContactHeader>
-
-				<StyleContactList>
-					<AppConsumer>
-						{context => {
-	        				return(
-	        				<React.Fragment>
-	        				 	{context.contacts.map((contact,index) => (
-									<StyleSingleContact 
-										active = {(index === isActive ) ? true : false } 
-										key = {contact.id}>
-										<UserAvtar />
-
-										<StyleChatDetails onClick = {() => {context.handleChatMessages(contact.id);handleActiveChat( index ) }}>
-											<div className="d-flex-sb">
-												<StyleUserName 
-													size = { '0.9rem' }
-													color="black"> {contact.name} 
-												</StyleUserName>
-												<StyleSpan 
-													size = {'0.8rem' } 
-													color = { '#7d7d7d'} 
-													weight={'300'}>6:24 PM
-												</StyleSpan>
-											</div>
-											<div className = "d-flex-sb">
-												<StyleMessage 
-													size = { '0.9rem' } 
-													color = {'black'}>
-													Oh understood 
-												</StyleMessage>
-												<StyleNewMsgIndicator>
-													3
-												</StyleNewMsgIndicator>
-											</div>
-											
-											<div className="d-flex-sb">
-												<StyleSpan 
-													size = { '0.6rem' } 
-													color = {'#7d7d7d'}>Syrow(9841000000)
-												</StyleSpan>
-												<StyleSpan
-													size = { '0.6rem' }
-													color = { 'black' }>Advisor001</StyleSpan>
-											</div>
-											
-										</StyleChatDetails>
-
-									</StyleSingleContact>
-								))}
-								</React.Fragment>
-							)
-						}}
-					</AppConsumer>
-				</StyleContactList>
-
-		</StyleContactContainer>
-	);
+  return (
+    <React.Fragment>
+      <StyleContactContainer isOpen={isContactOpen}>
+        <ContactListHeader
+          isContactOpen={isContactOpen}
+          toggleContact={toggleContact}
+        />
+        <ContactListContainer />
+      </StyleContactContainer>
+    </React.Fragment>
+  );
 };
 
 export default ContactList;
