@@ -1,11 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import {
   StyleContactHeader,
   StyleUserName,
   StyleDropDown,
-  StyleButtonContainer,
-  StylePannelTriggerRight,
-  StylePannelTriggerLeft
+  StyleButtonContainer
 } from "./style";
 
 import { useAuth } from "../../ContextApi/auth";
@@ -13,28 +11,24 @@ import { UserAvtar, SideNav } from "../../Components";
 import { StylePrimaryButton } from "../../Style";
 
 const ContactListHeader = props => {
+  console.log("Contact header");
   const [isNavOpen, setNavOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { setAuthTokens } = useAuth();
 
-  const handleDropdown = useCallback(() => {
+  const handleDropdown = () => {
     isOpen ? setIsOpen(false) : setIsOpen(true);
-  }, [isOpen]);
+  };
 
-  const toggleSideNav = useCallback(() => {
+  const toggleSideNav = () => {
     isNavOpen ? setNavOpen(false) : setNavOpen(true);
-  }, [isNavOpen]);
+  };
 
   const logOut = () => {
     setAuthTokens("");
   };
   return (
     <React.Fragment>
-      {props.isContactOpen ? (
-        <StylePannelTriggerRight onClick={() => props.toggleContact()}>
-          <i className="ti-angle-left"></i>
-        </StylePannelTriggerRight>
-      ) : null}
       <StyleContactHeader>
         <UserAvtar profilePic={props.profilePic} />
         <StyleUserName size="16px" bold>
@@ -58,15 +52,10 @@ const ContactListHeader = props => {
           </StyleDropDown>
         </StyleButtonContainer>
       </StyleContactHeader>
-      {!props.isContactOpen ? (
-        <StylePannelTriggerLeft onClick={props.toggleContact}>
-          <i className="ti-angle-right"></i>
-        </StylePannelTriggerLeft>
-      ) : null}
 
-      <SideNav isNavOpen={isNavOpen} />
+      <SideNav isNavOpen={isNavOpen} toggleSideNav={toggleSideNav} />
     </React.Fragment>
   );
 };
 
-export default ContactListHeader;
+export default React.memo(ContactListHeader);

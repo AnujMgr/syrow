@@ -11,4 +11,4 @@ const UserAvtar = props => {
   );
 };
 
-export default UserAvtar;
+export default React.memo(UserAvtar);

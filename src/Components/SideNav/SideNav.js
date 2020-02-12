@@ -35,4 +35,4 @@ const SideNav = props => {
   );
 };
 
-export default SideNav;
+export default React.memo(SideNav);

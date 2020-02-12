@@ -4,7 +4,6 @@ import { AuthContext } from "./ContextApi/auth";
 import { PrivateRoute } from "./Modules";
 import { Login, Home } from "./views";
 import { UserContext } from "./ContextApi/UserContext";
-
 import "./App.css";
 
 function App(props) {
@@ -13,13 +12,12 @@ function App(props) {
   );
   const [user, setUser] = useState("");
 
-  const tokenValue = useMemo(() => ({ authTokens, setAuthTokens }), [
-    authTokens,
-    setAuthTokens
-  ]);
-  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const setTokens = data => {
+    localStorage.setItem("token", JSON.stringify(data));
+    setAuthTokens(data);
+  };
 
-  console.log(authTokens);
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
   useEffect(() => {
     console.log("noos");
@@ -33,8 +31,9 @@ function App(props) {
       })
         .then(res => res.json())
         .then(result => {
-          console.log("i am user");
+          console.log(result);
           setUser(result);
+          setAuthTokens(result);
         });
     if (authTokens !== "") {
       getUser();
@@ -42,7 +41,7 @@ function App(props) {
   }, [authTokens]);
 
   return (
-    <AuthContext.Provider value={tokenValue}>
+    <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <UserContext.Provider value={value}>
         <BrowserRouter>
           <Switch>

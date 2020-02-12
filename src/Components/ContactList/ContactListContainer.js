@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { AppConsumer } from "../../ContextApi/context";
 import {
   StyleUserName,
   StyleContactList,
@@ -11,65 +10,55 @@ import {
 import { UserAvtar } from "../../Components";
 import { StyleSpan } from "../../Style";
 
-const ContactListContainer = () => {
+const ContactListContainer = props => {
   const [isActive, setActive] = useState(false);
-
-  console.log("i am ContactListContainer");
-
   const handleActiveChat = id => {
     setActive(id);
   };
-  return (
-    <StyleContactList>
-      <AppConsumer>
-        {context => {
-          return (
-            <React.Fragment>
-              {context.contacts.map((contact, index) => (
-                <StyleSingleContact
-                  active={index === isActive ? true : false}
-                  key={contact.id}
-                >
-                  <UserAvtar profilePic={"https://picsum.photos/200/200"} />
+  const { contact } = props;
 
-                  <StyleChatDetails onClick={() => handleActiveChat(index)}>
-                    <div className="d-flex-sb">
-                      <StyleUserName size={"0.9rem"} color="black">
-                        {" "}
-                        {contact.name}
-                      </StyleUserName>
-                      <StyleSpan
-                        size={"0.8rem"}
-                        color={"#7d7d7d"}
-                        weight={"300"}
-                      >
-                        6:24 PM
-                      </StyleSpan>
-                    </div>
-                    <div className="d-flex-sb">
-                      <StyleMessage size={"0.9rem"} color={"black"}>
-                        Oh understood
-                      </StyleMessage>
-                      <StyleNewMsgIndicator>3</StyleNewMsgIndicator>
-                    </div>
+  if (contact === null) {
+    return <h4>Loading...</h4>;
+  } else {
+    return (
+      <StyleContactList>
+        {contact.data.map((contact, index) => (
+          <StyleSingleContact
+            active={index === isActive ? true : false}
+            key={contact.id}
+          >
+            <UserAvtar profilePic={contact.avatar} />
 
-                    <div className="d-flex-sb">
-                      <StyleSpan size={"0.6rem"} color={"#7d7d7d"}>
-                        Syrow(9841000000)
-                      </StyleSpan>
-                      <StyleSpan size={"0.6rem"} color={"black"}>
-                        Advisor001
-                      </StyleSpan>
-                    </div>
-                  </StyleChatDetails>
-                </StyleSingleContact>
-              ))}
-            </React.Fragment>
-          );
-        }}
-      </AppConsumer>
-    </StyleContactList>
-  );
+            <StyleChatDetails onClick={() => handleActiveChat(index)}>
+              <div className="d-flex-sb">
+                <StyleUserName size={"0.9rem"} color="black">
+                  {contact.first_name}
+                </StyleUserName>
+                <StyleSpan size={"0.8rem"} color={"#7d7d7d"} weight={"300"}>
+                  6:24 PM
+                </StyleSpan>
+              </div>
+              <div className="d-flex-sb">
+                <StyleMessage size={"0.9rem"} color={"black"}>
+                  Oh understood
+                </StyleMessage>
+                <StyleNewMsgIndicator>3</StyleNewMsgIndicator>
+              </div>
+
+              <div className="d-flex-sb">
+                <StyleSpan size={"0.6rem"} color={"#7d7d7d"}>
+                  Syrow(9841000000)
+                </StyleSpan>
+                <StyleSpan size={"0.6rem"} color={"black"}>
+                  Advisor001
+                </StyleSpan>
+              </div>
+            </StyleChatDetails>
+          </StyleSingleContact>
+        ))}
+      </StyleContactList>
+    );
+  }
 };
 
-export default ContactListContainer;
+export default React.memo(ContactListContainer);

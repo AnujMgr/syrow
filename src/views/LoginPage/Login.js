@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import { Redirect } from "react-router-dom";
 import {
   StyleLoginContainer,
@@ -25,7 +24,7 @@ const Login = () => {
   }, [setAuthTokens, token]);
 
   useEffect(() => {
-    const fetchBook = async () =>
+    async function fetchBook() {
       await fetch(url, {
         method: "POST",
         headers: {
@@ -37,7 +36,7 @@ const Login = () => {
             "WeXUZ8WIafrcGf3oJtCNgT7bXhenHJ9ZuMaFkJVERk-9lyso2FQj4oKO8UEwAhAA",
           audience: "https://dev-2mphq0if.auth0.com/api/v2/",
           grant_type: "http://auth0.com/oauth/grant-type/password-realm",
-          username: "anujmgr777@gmail.com",
+          username: userName,
           password: "p@ssw0rd",
           scope: "openid",
           realm: "Username-Password-Authentication"
@@ -52,11 +51,12 @@ const Login = () => {
             setIsError(true);
           }
         );
+    }
     console.log("i fetch");
     if (token === null) {
       fetchBook();
     }
-  }, [url, token]);
+  }, [url, token, userName]);
 
   if (authTokens) {
     return <Redirect to="/" />;
@@ -74,7 +74,7 @@ const Login = () => {
         </StyleImgContainer>
         <StyleInputContainer>
           <StyleSpan size={"14px"} color={"#2b2b2b"} width={"100%"}>
-            SIGN IN
+            SIGN IN user1 anujmgr777@gmail.com user 2 anujmuncha@gmail.com
           </StyleSpan>
           <input
             type="userName"

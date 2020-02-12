@@ -15,9 +15,8 @@ const ChatBody = () => {
   const [messages, setMessages] = useState([]);
   const [name, setName] = useState(user.nickname);
 
-  const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "https://project-chat-application.herokuapp.com/";
   useEffect(() => {
-    console.log(user);
     const { name, room } = { name: `${user.nickname}`, room: "room" };
 
     socket = io(ENDPOINT);
@@ -47,14 +46,17 @@ const ChatBody = () => {
 
       socket.off();
     };
-  }, [messages, user.nickname]);
+  }, [messages, user]);
 
-  const sendMessage = useCallback((event, message) => {
-    event.preventDefault();
-    if (message) {
-      socket.emit("sendMessage", message, () => setMessage(""));
-    }
-  }, []);
+  const sendMessage = useCallback(
+    (event, message) => {
+      event.preventDefault();
+      if (message) {
+        socket.emit("sendMessage", message, () => setMessage(""));
+      }
+    },
+    [message]
+  );
 
   return (
     <React.Fragment>

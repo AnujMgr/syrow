@@ -25,7 +25,7 @@ const MessageBox = props => {
           type="search"
           id="search"
           className="hoverable"
-          autocomplete="off"
+          autoComplete="off"
           placeholder="Type a Message"
           value={value}
           onChange={event => handleChange(event)}

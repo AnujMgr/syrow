@@ -7,7 +7,7 @@ export const StyleLoginContainer = styled.div`
   position: fixed;
 `;
 
-export const StyleLoginBox = styled.form`
+export const StyleLoginBox = styled.div`
   position: absolute;
   top: 10%;
   left: 0;
