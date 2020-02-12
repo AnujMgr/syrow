@@ -30,7 +30,7 @@ const ContactListContainer = () => {
                   active={index === isActive ? true : false}
                   key={contact.id}
                 >
-                  <UserAvtar />
+                  <UserAvtar profilePic={"https://picsum.photos/200/200"} />
 
                   <StyleChatDetails onClick={() => handleActiveChat(index)}>
                     <div className="d-flex-sb">

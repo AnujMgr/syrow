@@ -25,9 +25,16 @@ const MessageBox = props => {
           type="search"
           id="search"
           className="hoverable"
+          autocomplete="off"
           placeholder="Type a Message"
           value={value}
           onChange={event => handleChange(event)}
+          onKeyPress={event => {
+            if (event.key === "Enter") {
+              props.sendMessage(event, value);
+              setValue("");
+            }
+          }}
         />
       ) : (
         <StyleContainer>

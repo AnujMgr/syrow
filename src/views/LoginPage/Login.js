@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Redirect } from "react-router-dom";
 import {
@@ -10,55 +10,55 @@ import {
 } from "./style";
 import { StyleSpan } from "../../Style";
 import { useAuth } from "../../ContextApi/auth";
-import { UserContext } from "../../ContextApi/UserContext";
 
 const Login = () => {
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState(null);
   const [url, setUrl] = useState(null);
-  const user = useContext(UserContext);
-  const { setAuthTokens } = useAuth();
+  const { authTokens, setAuthTokens } = useAuth();
 
   useEffect(() => {
-    console.log("token");
+    console.log("i set token");
     setAuthTokens(token);
   }, [setAuthTokens, token]);
 
   useEffect(() => {
-    const fetchBook = () =>
-      fetch(url, {
-        method: "GET",
+    const fetchBook = async () =>
+      await fetch(url, {
+        method: "POST",
         headers: {
-          Accept: "application/json",
           "Content-Type": "application/json"
-        }
+        },
+        body: JSON.stringify({
+          client_id: "asAaopfsQOxZq58X97XSgNicq7qlV7KG",
+          client_secret:
+            "WeXUZ8WIafrcGf3oJtCNgT7bXhenHJ9ZuMaFkJVERk-9lyso2FQj4oKO8UEwAhAA",
+          audience: "https://dev-2mphq0if.auth0.com/api/v2/",
+          grant_type: "http://auth0.com/oauth/grant-type/password-realm",
+          username: "anujmgr777@gmail.com",
+          password: "p@ssw0rd",
+          scope: "openid",
+          realm: "Username-Password-Authentication"
+        })
       })
         .then(res => res.json())
         .then(
           result => {
-            if (result.responseCode === 200) {
-              setToken(result);
-              setLoggedIn(true);
-            } else {
-              setLoggedIn(false);
-            }
+            setToken(result.access_token);
           },
           error => {
-            if (url === null) {
-              setIsError(false);
-            } else {
-              setIsError(true);
-            }
+            setIsError(true);
           }
         );
-    fetchBook();
-  }, [url]);
+    console.log("i fetch");
+    if (token === null) {
+      fetchBook();
+    }
+  }, [url, token]);
 
-  console.log("i am Login");
-  if (isLoggedIn) {
+  if (authTokens) {
     return <Redirect to="/" />;
   }
 
@@ -103,11 +103,7 @@ const Login = () => {
 
         <StyleInputContainer>
           <StyleLoginBtn
-            onClick={() =>
-              setUrl(
-                "https://api.jotform.com/user?apiKey=48908b197b0d6c8a621c148cc6fe5fed"
-              )
-            }
+            onClick={() => setUrl("https://dev-2mphq0if.auth0.com/oauth/token")}
           >
             Log In{" "}
           </StyleLoginBtn>

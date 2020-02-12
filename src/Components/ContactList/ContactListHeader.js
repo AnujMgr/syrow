@@ -13,7 +13,6 @@ import { UserAvtar, SideNav } from "../../Components";
 import { StylePrimaryButton } from "../../Style";
 
 const ContactListHeader = props => {
-  console.log("i am Contact List Header");
   const [isNavOpen, setNavOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { setAuthTokens } = useAuth();
@@ -27,7 +26,7 @@ const ContactListHeader = props => {
   }, [isNavOpen]);
 
   const logOut = () => {
-    setAuthTokens();
+    setAuthTokens("");
   };
   return (
     <React.Fragment>
@@ -37,9 +36,9 @@ const ContactListHeader = props => {
         </StylePannelTriggerRight>
       ) : null}
       <StyleContactHeader>
-        <UserAvtar />
+        <UserAvtar profilePic={props.profilePic} />
         <StyleUserName size="16px" bold>
-          Advisor
+          {props.userName}
         </StyleUserName>
         <StyleButtonContainer>
           <StylePrimaryButton onClick={handleDropdown}>

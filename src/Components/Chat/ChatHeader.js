@@ -13,6 +13,7 @@ import { UserAvtar, DragAndDrop } from "../../Components";
 import { StylePrimaryButton } from "../../Style";
 
 const ChatHeader = () => {
+  console.log("i am Chat header");
   const [isFileUploadOpen, setFileUploadOpen] = useState(false);
 
   const toggleFileUpload = () => {
@@ -20,7 +21,7 @@ const ChatHeader = () => {
   };
   return (
     <StyleChatHeader>
-      <UserAvtar />
+      <UserAvtar profilePic={"https://picsum.photos/200/200"} />
 
       <StyleChatDetails>
         <StyleUserName bold>Advisor002</StyleUserName>

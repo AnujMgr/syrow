@@ -8,7 +8,6 @@ import {
 import { UserAvtar } from "../../Components";
 
 const Message = React.memo(message => {
-  console.log("I am Message");
   let isSentByCurrentUser = false;
 
   const trimmedName = message.name.trim().toLowerCase();
@@ -19,7 +18,7 @@ const Message = React.memo(message => {
 
   return isSentByCurrentUser ? (
     <StyleMessageContainer sender>
-      <UserAvtar />
+      <UserAvtar profilePic={"https://picsum.photos/200/200"} />
       <StyleMessage sender>
         <StyleUserName>{message.message.user}</StyleUserName>
         <p>{message.message.text}</p>
@@ -28,7 +27,8 @@ const Message = React.memo(message => {
     </StyleMessageContainer>
   ) : (
     <StyleMessageContainer>
-      <UserAvtar />
+      <UserAvtar profilePic={"https://picsum.photos/200/200"} />
+
       <StyleMessage>
         <StyleUserName>{message.message.user}</StyleUserName>
         <p>{message.message.text}</p>

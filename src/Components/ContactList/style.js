@@ -129,6 +129,7 @@ export const StylePannelTriggerRight = styled.div`
 `;
 
 export const StyleButtonContainer = styled.div`
+  display: flex;
   position: relative;
 `;
 
@@ -136,21 +137,22 @@ export const StyleDropDown = styled.div`
   	position: absolute;
   	visibility: ${props => (props.isOpen ? "visible" : "hidden")};
   	opacity: ${props => (props.isOpen ? 1 : 0)};
-  	padding: 1%;
-	right: 0;
-	min-width: 160px;
-	padding: 5px 0;
-    padding-bottom: 5px;
-	margin: 2px 0 0;
-    margin-top: 2px;
-	font-size: 14px;
-	text-align: left;
-	list-style: none;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    padding: 1%;
+    top: 50px;
+    right: 0;
+    min-width: 160px;
+    padding: 5px 0;
+      padding-bottom: 5px;
+    margin: 2px 0 0;
+      margin-top: 2px;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
  
   ul {
   	list-style: none;
