@@ -24,12 +24,12 @@ export const StyleModalContainer = styled.div`
 `;
 
 export const StyleOverlay = styled.div`
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background: #000000b3
-	top: 0;
-	left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000000b3;
+  top: 0;
+  left: 0;
 `;
 
 export const StyleChatHeader = styled.div`
@@ -44,12 +44,21 @@ export const StyleChatHeader = styled.div`
 export const StyleChatBody = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
+  padding: 0rem;
   min-height: 50px;
   align-items: center;
   height: calc(100vh - 203px);
   overflow-x: hidden;
   overflow-y: auto;
+  @media only screen and (max-width: 992px) {
+    height: calc(100vh - 150px);
+  }
+`;
+
+export const StyleScrollToBottom = styled.div`
+  height: calc(100vh - 203px);
+  width: 100%;
+  overflow: auto;
   @media only screen and (max-width: 992px) {
     height: calc(100vh - 150px);
   }
@@ -100,8 +109,8 @@ export const StyleChatControls = styled.div`
 
 export const StyleUserName = styled.span`
   color: #2b2b2b;
-  font-size: ${props => props.size};
-  font-weight: ${props => (props.bold ? "500" : "300")};
+  font-size: ${(props) => props.size};
+  font-weight: ${(props) => (props.bold ? "500" : "300")};
   flex-grow: 1;
 `;
 
@@ -115,16 +124,4 @@ export const StyleDetails = styled.span`
   span {
     color: black;
   }
-`;
-
-export const StyleEmptyChat = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  font-family: roboto;
-  width: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 `;

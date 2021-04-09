@@ -7,31 +7,27 @@ import {
 } from "./style";
 import { UserAvtar } from "../../Components";
 
-const Message = React.memo(message => {
-  let isSentByCurrentUser = false;
-
-  const trimmedName = message.name.trim().toLowerCase();
-
-  if (message.message.user === trimmedName) {
-    isSentByCurrentUser = true;
-  }
-
-  return isSentByCurrentUser ? (
+const Message = React.memo(props => {
+  return props.message.sender === "anuj1" ? (
     <StyleMessageContainer sender>
-      <UserAvtar profilePic={"https://picsum.photos/200/200"} />
+      <UserAvtar
+        profilePic={props.message.data.entities.sender.entity.avatar}
+      />
       <StyleMessage sender>
-        <StyleUserName>{message.message.user}</StyleUserName>
-        <p>{message.message.text}</p>
+        <StyleUserName>{props.message.sender}</StyleUserName>
+        <p>{props.message.data.text}</p>
         <StyleDate sender>6 months ago</StyleDate>
       </StyleMessage>
     </StyleMessageContainer>
   ) : (
     <StyleMessageContainer>
-      <UserAvtar profilePic={"https://picsum.photos/200/200"} />
+      <UserAvtar
+        profilePic={props.message.data.entities.sender.entity.avatar}
+      />
 
       <StyleMessage>
-        <StyleUserName>{message.message.user}</StyleUserName>
-        <p>{message.message.text}</p>
+        <StyleUserName>{props.message.receiver}</StyleUserName>
+        <p>{props.message.text}</p>
         <StyleDate>6 months ago</StyleDate>
       </StyleMessage>
     </StyleMessageContainer>

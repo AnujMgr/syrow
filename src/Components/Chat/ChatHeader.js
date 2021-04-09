@@ -12,8 +12,7 @@ import {
 import { UserAvtar, DragAndDrop } from "../../Components";
 import { StylePrimaryButton } from "../../Style";
 
-const ChatHeader = () => {
-  console.log("i am Chat header");
+const ChatHeader = props => {
   const [isFileUploadOpen, setFileUploadOpen] = useState(false);
 
   const toggleFileUpload = () => {
@@ -21,10 +20,10 @@ const ChatHeader = () => {
   };
   return (
     <StyleChatHeader>
-      <UserAvtar profilePic={"https://picsum.photos/200/200"} />
+      <UserAvtar profilePic={props.avtar} />
 
       <StyleChatDetails>
-        <StyleUserName bold>Advisor002</StyleUserName>
+        <StyleUserName bold>{props.contactName}</StyleUserName>
 
         <StyleDetails>
           <span>Picked:</span> Advisor |<span> Viewing: </span> Advisor002,
@@ -53,4 +52,4 @@ const ChatHeader = () => {
   );
 };
 
-export default ChatHeader;
+export default React.memo(ChatHeader);

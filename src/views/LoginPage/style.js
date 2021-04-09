@@ -7,7 +7,7 @@ export const StyleLoginContainer = styled.div`
   position: fixed;
 `;
 
-export const StyleLoginBox = styled.div`
+export const StyleLoginBox = styled.form`
   position: absolute;
   top: 10%;
   left: 0;
@@ -45,7 +45,7 @@ export const StyleImgContainer = styled.div`
 	width: 100%;
 	img {
 		width: auto;
-		height: 60px
+		height: 60px;
 		margin: 20px 0px;
 	}
 `;
@@ -57,11 +57,11 @@ export const StyleInputContainer = styled.div`
 export const StyleUserName = styled.input`	
 	display:flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: center; 
 	width: 100%;
 	img {
 		width: 120px;
-		height: 120px
+		height: 120px;
 		margin-bottom: 20px;
 	}
 `;

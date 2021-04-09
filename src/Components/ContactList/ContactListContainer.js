@@ -12,27 +12,28 @@ import { StyleSpan } from "../../Style";
 
 const ContactListContainer = props => {
   const [isActive, setActive] = useState(false);
+
   const handleActiveChat = id => {
     setActive(id);
   };
-  const { contact } = props;
 
-  if (contact === null) {
+  if (props.contacts === null) {
     return <h4>Loading...</h4>;
   } else {
     return (
       <StyleContactList>
-        {contact.data.map((contact, index) => (
+        {props.contacts.data.map((contact, index) => (
           <StyleSingleContact
             active={index === isActive ? true : false}
-            key={contact.id}
+            key={contact.uid}
+            onClick={() => props.getContactUser(contact)}
           >
             <UserAvtar profilePic={contact.avatar} />
 
             <StyleChatDetails onClick={() => handleActiveChat(index)}>
               <div className="d-flex-sb">
                 <StyleUserName size={"0.9rem"} color="black">
-                  {contact.first_name}
+                  {contact.name}
                 </StyleUserName>
                 <StyleSpan size={"0.8rem"} color={"#7d7d7d"} weight={"300"}>
                   6:24 PM

@@ -14,6 +14,8 @@ const MessageBox = props => {
     setValue(event.target.value);
   };
 
+  console.log("i am message box");
+
   return (
     <StyleMessageBoxContainer>
       <StylePrimaryButton>
@@ -52,7 +54,7 @@ const MessageBox = props => {
       )}
       <StylePrimaryButton
         onClick={event => {
-          props.sendMessage(event, value);
+          props.sendMessage(event, value, props.toBeSendId);
           setValue("");
         }}
       >
@@ -62,4 +64,4 @@ const MessageBox = props => {
   );
 };
 
-export default MessageBox;
+export default React.memo(MessageBox);

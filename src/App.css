@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 /* This is for popins font for firefox */
 @font-face {
   font-family: "Poppins";
@@ -40,6 +44,15 @@
     url("./icons/simple-line-icons/fonts/Simple-Line-Icons.woff") format("woff");
   font-weight: normal;
   font-style: normal;
+}
+
+::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #ff0000;
 }
 
 * {
@@ -118,15 +131,6 @@ h5 {
 .d-flex-sb {
   display: flex;
   justify-content: space-between;
-}
-.scroll-to-bottom {
-  height: calc(100vh - 203px);
-  width: 100%;
-}
-@media only screen and (max-width: 992px) {
-  .scroll-to-bottom {
-    height: calc(100vh - 150px);
-  }
 }
 /*
  Use the following CSS code if you want to have a class per icon.

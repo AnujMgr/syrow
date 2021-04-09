@@ -62,6 +62,7 @@ export const StyleUserName = styled.span`
   font-weight: ${props => (props.bold ? "500" : "300")};
   flex-grow: 1;
   color: ${props => (props.color ? props.color : "black")};
+  overflow: hidden;
 `;
 
 export const StyleMessage = styled.span`
@@ -75,14 +76,17 @@ export const StyleMessage = styled.span`
   width: 10px;
 `;
 
-export const StyleContactList = styled.ul`
+export const StyleContactList = styled.div`
   font-size: 18px;
   list-style: none;
   padding-left: 20px;
   padding: 10px;
+  height: calc(100vh - 150px);
+  overflow: hidden;
+  overflow-y: auto;
 `;
 
-export const StyleSingleContact = styled.li`
+export const StyleSingleContact = styled.div`
 	font-size: 18px;
 	font-weight: 500;
 	display: flex; 

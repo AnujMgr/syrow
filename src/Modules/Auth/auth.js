@@ -1,7 +1,6 @@
 class Auth {
   constructor() {
     this.user_token = JSON.parse(localStorage.getItem("auth")) || {};
-    console.log(this.user_token);
   }
 
   getToken() {

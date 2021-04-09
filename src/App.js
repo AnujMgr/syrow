@@ -6,37 +6,39 @@ import { Login, Home } from "./views";
 import { UserContext } from "./ContextApi/UserContext";
 import "./App.css";
 
-function App(props) {
+function App() {
   const [authTokens, setAuthTokens] = useState(
     JSON.parse(localStorage.getItem("token")) || ""
   );
   const [user, setUser] = useState("");
-
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
   const setTokens = data => {
+    console.log("set Token");
     localStorage.setItem("token", JSON.stringify(data));
     setAuthTokens(data);
   };
 
-  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+  useEffect(() => {
+    setAuthTokens(authTokens);
+  }, [authTokens]);
 
   useEffect(() => {
-    console.log("noos");
-    const getUser = () =>
-      fetch("https://dev-2mphq0if.auth0.com/userinfo", {
+    const getUser = async token => {
+      console.log("Get User");
+      await fetch("https://dev-2mphq0if.auth0.com/userinfo", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authTokens}`
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`
         }
       })
         .then(res => res.json())
         .then(result => {
-          console.log(result);
           setUser(result);
-          setAuthTokens(result);
         });
-    if (authTokens !== "") {
-      getUser();
+    };
+    if (authTokens) {
+      getUser(authTokens);
     }
   }, [authTokens]);
 

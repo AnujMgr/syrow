@@ -5,7 +5,7 @@ export const StyleMessageBoxContainer = styled.div`
   align-items: center;
   background-color: #f9f9f9;
   padding: 0 1%;
-  flex-grow: 1;
+  height: 75px;
   input {
     padding: 0 0 0 20px;
     margin: 10px;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import {
   StyleLoginContainer,
@@ -14,57 +14,53 @@ const Login = () => {
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState(null);
-  const [url, setUrl] = useState(null);
+  const [loading, setisLoading] = useState(false);
   const { authTokens, setAuthTokens } = useAuth();
 
-  useEffect(() => {
-    console.log("i set token");
-    setAuthTokens(token);
-  }, [setAuthTokens, token]);
-
-  useEffect(() => {
-    async function fetchBook() {
-      await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          client_id: "asAaopfsQOxZq58X97XSgNicq7qlV7KG",
-          client_secret:
-            "WeXUZ8WIafrcGf3oJtCNgT7bXhenHJ9ZuMaFkJVERk-9lyso2FQj4oKO8UEwAhAA",
-          audience: "https://dev-2mphq0if.auth0.com/api/v2/",
-          grant_type: "http://auth0.com/oauth/grant-type/password-realm",
-          username: userName,
-          password: "p@ssw0rd",
-          scope: "openid",
-          realm: "Username-Password-Authentication"
-        })
+  async function fetchBook(userName, event) {
+    event.preventDefault();
+    await fetch("https://dev-2mphq0if.auth0.com/oauth/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        client_id: "asAaopfsQOxZq58X97XSgNicq7qlV7KG",
+        client_secret:
+          "WeXUZ8WIafrcGf3oJtCNgT7bXhenHJ9ZuMaFkJVERk-9lyso2FQj4oKO8UEwAhAA",
+        audience: "https://dev-2mphq0if.auth0.com/api/v2/",
+        grant_type: "http://auth0.com/oauth/grant-type/password-realm",
+        username: userName,
+        password: "p@ssw0rd",
+        scope: "openid",
+        realm: "Username-Password-Authentication"
       })
-        .then(res => res.json())
-        .then(
-          result => {
-            setToken(result.access_token);
-          },
-          error => {
+    })
+      .then(res => res.json())
+      .then(
+        result => {
+          if (result.access_token) {
+            console.log("You are logged in");
+            setAuthTokens(result.access_token);
+          } else {
+            setisLoading(false);
             setIsError(true);
           }
-        );
-    }
-    console.log("i fetch");
-    if (token === null) {
-      fetchBook();
-    }
-  }, [url, token, userName]);
+        },
+        error => {
+          setIsError(true);
+        }
+      );
+  }
 
   if (authTokens) {
     return <Redirect to="/" />;
   }
+  console.log(loading);
 
   return (
     <StyleLoginContainer>
-      <StyleLoginBox>
+      <StyleLoginBox onSubmit={e => fetchBook(userName, e)}>
         <StyleImgContainer>
           <img src="sy1.png" alt="Logo" />
           <StyleSpan size={"14px"} color={"#2b2b2b"}>
@@ -77,10 +73,15 @@ const Login = () => {
             SIGN IN user1 anujmgr777@gmail.com user 2 anujmuncha@gmail.com
           </StyleSpan>
           <input
-            type="userName"
+            type="text"
             value={userName}
             onChange={e => {
-              setUserName(e.target.value);
+              setUserName(e.target.value.trim());
+            }}
+            onKeyPress={event => {
+              if (event.key === "Enter") {
+                fetchBook(userName);
+              }
             }}
             placeholder="Username"
             name="uname"
@@ -90,21 +91,18 @@ const Login = () => {
 
         <StyleInputContainer>
           <input
-            type="Password"
+            type="password"
             value={password}
             onChange={e => {
-              setPassword(e.target.value);
+              setPassword(e.target.value.trim());
             }}
+            autoComplete="on"
             placeholder="Password"
-            name="uname"
-            required
           />
         </StyleInputContainer>
 
         <StyleInputContainer>
-          <StyleLoginBtn
-            onClick={() => setUrl("https://dev-2mphq0if.auth0.com/oauth/token")}
-          >
+          <StyleLoginBtn disabled={loading} type="submit">
             Log In{" "}
           </StyleLoginBtn>
           {isError ? <h3>Wrong Email or Password </h3> : null}

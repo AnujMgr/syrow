@@ -7,7 +7,6 @@ import {
 } from "./style";
 
 const SideNav = props => {
-  console.log("SideNav");
   return (
     <StyleSideNav isNavOpen={props.isNavOpen}>
       <StyleSideNavHeader>
