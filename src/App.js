@@ -12,7 +12,7 @@ function App() {
   );
   const [user, setUser] = useState("");
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
-  const setTokens = data => {
+  const setTokens = (data) => {
     console.log("set Token");
     localStorage.setItem("token", JSON.stringify(data));
     setAuthTokens(data);
@@ -23,17 +23,17 @@ function App() {
   }, [authTokens]);
 
   useEffect(() => {
-    const getUser = async token => {
+    const getUser = async (token) => {
       console.log("Get User");
-      await fetch("https://dev-2mphq0if.auth0.com/userinfo", {
+      await fetch("https://dev-xqr59g3x.us.auth0.com/userinfo", {
         method: "POST",
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-        .then(res => res.json())
-        .then(result => {
+        .then((res) => res.json())
+        .then((result) => {
           setUser(result);
         });
     };

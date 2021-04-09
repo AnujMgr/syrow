@@ -5,7 +5,7 @@ import {
   StyleLoginBox,
   StyleImgContainer,
   StyleInputContainer,
-  StyleLoginBtn
+  StyleLoginBtn,
 } from "./style";
 import { StyleSpan } from "../../Style";
 import { useAuth } from "../../ContextApi/auth";
@@ -19,26 +19,25 @@ const Login = () => {
 
   async function fetchBook(userName, event) {
     event.preventDefault();
-    await fetch("https://dev-2mphq0if.auth0.com/oauth/token", {
+    await fetch("https://dev-xqr59g3x.us.auth0.com/oauth/token", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        client_id: "asAaopfsQOxZq58X97XSgNicq7qlV7KG",
-        client_secret:
-          "WeXUZ8WIafrcGf3oJtCNgT7bXhenHJ9ZuMaFkJVERk-9lyso2FQj4oKO8UEwAhAA",
-        audience: "https://dev-2mphq0if.auth0.com/api/v2/",
+        client_id: process.env.REACT_APP_Client_Id,
+        client_secret: process.env.REACT_APP_Client_Secret,
+        audience: "https://dev-xqr59g3x.us.auth0.com/api/v2/",
         grant_type: "http://auth0.com/oauth/grant-type/password-realm",
         username: userName,
-        password: "p@ssw0rd",
+        password: password,
         scope: "openid",
-        realm: "Username-Password-Authentication"
-      })
+        realm: "Username-Password-Authentication",
+      }),
     })
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
-        result => {
+        (result) => {
           if (result.access_token) {
             console.log("You are logged in");
             setAuthTokens(result.access_token);
@@ -47,7 +46,7 @@ const Login = () => {
             setIsError(true);
           }
         },
-        error => {
+        (error) => {
           setIsError(true);
         }
       );
@@ -56,11 +55,10 @@ const Login = () => {
   if (authTokens) {
     return <Redirect to="/" />;
   }
-  console.log(loading);
 
   return (
     <StyleLoginContainer>
-      <StyleLoginBox onSubmit={e => fetchBook(userName, e)}>
+      <StyleLoginBox onSubmit={(e) => fetchBook(userName, e)}>
         <StyleImgContainer>
           <img src="sy1.png" alt="Logo" />
           <StyleSpan size={"14px"} color={"#2b2b2b"}>
@@ -70,19 +68,23 @@ const Login = () => {
         </StyleImgContainer>
         <StyleInputContainer>
           <StyleSpan size={"14px"} color={"#2b2b2b"} width={"100%"}>
-            SIGN IN user1 anujmgr777@gmail.com user 2 anujmuncha@gmail.com
+            SIGN IN <br />
+            userName: anujmgr777@gmail.com <br />
+            password = p@ssw0rd
           </StyleSpan>
+          <br />
+          <label>User Name:</label>
           <input
             type="text"
             value={userName}
-            onChange={e => {
+            onChange={(e) => {
               setUserName(e.target.value.trim());
             }}
-            onKeyPress={event => {
-              if (event.key === "Enter") {
-                fetchBook(userName);
-              }
-            }}
+            // onKeyPress={(event) => {
+            //   if (event.key === "Enter") {
+            //     fetchBook(userName);
+            //   }
+            // }}
             placeholder="Username"
             name="uname"
             required
@@ -90,10 +92,12 @@ const Login = () => {
         </StyleInputContainer>
 
         <StyleInputContainer>
+          <label>Password:</label>
           <input
             type="password"
             value={password}
-            onChange={e => {
+            name="password"
+            onChange={(e) => {
               setPassword(e.target.value.trim());
             }}
             autoComplete="on"

@@ -22,8 +22,8 @@ const ChatBody = (props) => {
           method: "GET",
           qs: { unread: "true", undelivered: "true", count: "true" },
           headers: {
-            appid: "31815e8095ae635",
-            apikey: "356c3dd6cc3265ccbd5ef7cbd104aa16e74cb5b5",
+            appid: process.env.REACT_APP_Chat_App_Id,
+            apikey: process.env.REACT_APP_Chat_Api_Key,
             "content-type": "application/json",
             accept: "application/json",
           },
@@ -53,8 +53,8 @@ const ChatBody = (props) => {
     fetch(`https://api-us.cometchat.io/v2.0/users/anuj1/messages`, {
       method: "POST",
       headers: {
-        appid: "31815e8095ae635",
-        apikey: "356c3dd6cc3265ccbd5ef7cbd104aa16e74cb5b5",
+        appid: process.env.REACT_APP_Chat_App_Id,
+        apikey: process.env.REACT_APP_Chat_Api_Key,
         "content-type": "application/json",
         accept: "application/json",
       },

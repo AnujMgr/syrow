@@ -18,8 +18,8 @@ const Home = () => {
         {
           method: "GET",
           headers: {
-            appid: "31815e8095ae635",
-            apikey: "356c3dd6cc3265ccbd5ef7cbd104aa16e74cb5b5",
+            appid: process.env.REACT_APP_Chat_App_Id,
+            apikey: process.env.REACT_APP_Chat_Api_Key,
             "content-type": "application/json",
             accept: "application/json",
           },
