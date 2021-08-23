@@ -12,7 +12,10 @@ const Chat = (props) => {
         avtar={props.contactUser.avatar}
       />
 
-      <ChatBody contactUserId={props.contactUser.uid} />
+      <ChatBody
+        userName={props.contactUser.name}
+        contactUserId={props.contactUser.uid}
+      />
     </StyleChatContainer>
   );
 };

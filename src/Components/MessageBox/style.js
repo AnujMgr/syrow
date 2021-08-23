@@ -22,6 +22,7 @@ export const StyleMessageBoxContainer = styled.div`
       color: #7d7a7a;
     }
   }
+  z-index: 9999;
 `;
 
 export const StyleContainer = styled.div`

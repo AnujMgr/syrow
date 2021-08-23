@@ -13,7 +13,6 @@ function App() {
   const [user, setUser] = useState("");
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
   const setTokens = (data) => {
-    console.log("set Token");
     localStorage.setItem("token", JSON.stringify(data));
     setAuthTokens(data);
   };
@@ -24,17 +23,18 @@ function App() {
 
   useEffect(() => {
     const getUser = async (token) => {
-      console.log("Get User");
-      await fetch("https://dev-xqr59g3x.us.auth0.com/userinfo", {
-        method: "POST",
+      await fetch("https://api-us.cometchat.io/v2.0/users/anujmgr777/me", {
+        method: "GET",
         headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+          accept: "application/json",
+          "Content-Type": "application/json",
+          appId: process.env.REACT_APP_Chat_App_Id,
+          apiKey: process.env.REACT_APP_Chat_Api_Key,
         },
       })
         .then((res) => res.json())
         .then((result) => {
-          setUser(result);
+          setUser(result.data);
         });
     };
     if (authTokens) {

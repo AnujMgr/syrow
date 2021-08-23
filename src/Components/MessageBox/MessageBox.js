@@ -1,20 +1,38 @@
 import React, { useState } from "react";
-import { StyleMessageBoxContainer, StyleContainer } from "./style";
-import { StylePrimaryButton, StyleSpan } from "../../Style";
+import { StyleMessageBoxContainer } from "./style";
+import { StylePrimaryButton } from "../../Style";
 
-const MessageBox = props => {
-  const [isPick, setPick] = useState(false);
+const MessageBox = (props) => {
   const [value, setValue] = useState("");
 
-  const toggleReplyModal = () => {
-    isPick ? setPick(false) : setPick(true);
-  };
-
-  const handleChange = event => {
+  const handleChange = (event) => {
     setValue(event.target.value);
   };
 
-  console.log("i am message box");
+  const sendMessage = (event, message, uid) => {
+    event.preventDefault();
+    const url = "https://api-us.cometchat.io/v2.0/users/anujmgr777/messages";
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        appId: process.env.REACT_APP_Chat_App_Id,
+        apiKey: process.env.REACT_APP_Chat_Api_Key,
+      },
+      body: JSON.stringify({
+        category: "message",
+        receiver: uid,
+        receiverType: "user",
+        type: "text",
+        data: { text: message, metadata: { key1: "value1", key2: "value2" } },
+      }),
+    };
+    fetch(url, options)
+      .then((res) => res.json())
+      .then((json) => console.log(json))
+      .catch((err) => console.error("error:" + err));
+  };
 
   return (
     <StyleMessageBoxContainer>
@@ -22,39 +40,25 @@ const MessageBox = props => {
         <i className="icon ti-face-smile font-24 btn-emoji"></i>
       </StylePrimaryButton>
 
-      {isPick ? (
-        <input
-          type="search"
-          id="search"
-          className="hoverable"
-          autoComplete="off"
-          placeholder="Type a Message"
-          value={value}
-          onChange={event => handleChange(event)}
-          onKeyPress={event => {
-            if (event.key === "Enter") {
-              props.sendMessage(event, value);
-              setValue("");
-            }
-          }}
-        />
-      ) : (
-        <StyleContainer>
-          <span>Advisor001, your view has been recorded. </span>
-          <StyleSpan
-            padding={"0px 3px"}
-            cursor={" pointer"}
-            color={"#1414ca"}
-            onClick={() => toggleReplyModal()}
-          >
-            Pick
-          </StyleSpan>
-          <span> to make reply.</span>
-        </StyleContainer>
-      )}
+      <input
+        type="search"
+        id="search"
+        className="hoverable"
+        autoComplete="off"
+        placeholder="Type a Message"
+        value={value}
+        onChange={(event) => handleChange(event)}
+        onKeyPress={(event) => {
+          if (event.key === "Enter") {
+            sendMessage(event, value, props.toBeSendId);
+            setValue("");
+          }
+        }}
+      />
+
       <StylePrimaryButton
-        onClick={event => {
-          props.sendMessage(event, value, props.toBeSendId);
+        onClick={(event) => {
+          sendMessage(event, value, props.toBeSendId);
           setValue("");
         }}
       >

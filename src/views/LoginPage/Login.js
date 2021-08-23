@@ -17,7 +17,8 @@ const Login = () => {
   const [loading, setisLoading] = useState(false);
   const { authTokens, setAuthTokens } = useAuth();
 
-  async function fetchBook(userName, event) {
+  async function fetchBook(userName,pass, event) {
+    console.log(userName, pass);
     event.preventDefault();
     await fetch("https://dev-xqr59g3x.us.auth0.com/oauth/token", {
       method: "POST",
@@ -30,7 +31,7 @@ const Login = () => {
         audience: "https://dev-xqr59g3x.us.auth0.com/api/v2/",
         grant_type: "http://auth0.com/oauth/grant-type/password-realm",
         username: userName,
-        password: password,
+        password: pass,
         scope: "openid",
         realm: "Username-Password-Authentication",
       }),
@@ -58,7 +59,7 @@ const Login = () => {
 
   return (
     <StyleLoginContainer>
-      <StyleLoginBox onSubmit={(e) => fetchBook(userName, e)}>
+      <StyleLoginBox onSubmit={(e) => fetchBook(userName,password, e)}>
         <StyleImgContainer>
           <img src="sy1.png" alt="Logo" />
           <StyleSpan size={"14px"} color={"#2b2b2b"}>
@@ -69,8 +70,8 @@ const Login = () => {
         <StyleInputContainer>
           <StyleSpan size={"14px"} color={"#2b2b2b"} width={"100%"}>
             SIGN IN <br />
-            userName: anujmgr777@gmail.com <br />
-            password = p@ssw0rd
+            {/* userName: anujmgr777@gmail.com <br />
+            password = p@ssw0rd */}
           </StyleSpan>
           <br />
           <label>User Name:</label>
@@ -80,11 +81,6 @@ const Login = () => {
             onChange={(e) => {
               setUserName(e.target.value.trim());
             }}
-            // onKeyPress={(event) => {
-            //   if (event.key === "Enter") {
-            //     fetchBook(userName);
-            //   }
-            // }}
             placeholder="Username"
             name="uname"
             required
@@ -110,6 +106,12 @@ const Login = () => {
             Log In{" "}
           </StyleLoginBtn>
           {isError ? <h3>Wrong Email or Password </h3> : null}
+        </StyleInputContainer>
+        <StyleInputContainer>
+          <StyleLoginBtn disabled={loading} onClick={(e) => fetchBook("anujmgr777@gmail.com","p@ssw0rd", e)}>
+            Demo{" "}
+          </StyleLoginBtn>
+         
         </StyleInputContainer>
       </StyleLoginBox>
     </StyleLoginContainer>

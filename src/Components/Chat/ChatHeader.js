@@ -5,14 +5,13 @@ import {
   StyleChatDetails,
   StyleChatControls,
   StyleUserName,
-  StyleDetails,
-  StyleOverlay
+  StyleOverlay,
 } from "./style";
 
 import { UserAvtar, DragAndDrop } from "../../Components";
 import { StylePrimaryButton } from "../../Style";
 
-const ChatHeader = props => {
+const ChatHeader = (props) => {
   const [isFileUploadOpen, setFileUploadOpen] = useState(false);
 
   const toggleFileUpload = () => {
@@ -24,11 +23,6 @@ const ChatHeader = props => {
 
       <StyleChatDetails>
         <StyleUserName bold>{props.contactName}</StyleUserName>
-
-        <StyleDetails>
-          <span>Picked:</span> Advisor |<span> Viewing: </span> Advisor002,
-          Advisor005
-        </StyleDetails>
       </StyleChatDetails>
 
       <StyleChatControls>
@@ -44,9 +38,9 @@ const ChatHeader = props => {
       </StyleChatControls>
 
       {isFileUploadOpen ? (
-        <React.Fragment>
+        <>
           <DragAndDrop toggleFileUpload={toggleFileUpload} /> <StyleOverlay />
-        </React.Fragment>
+        </>
       ) : null}
     </StyleChatHeader>
   );

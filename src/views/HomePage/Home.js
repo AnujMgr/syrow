@@ -7,33 +7,27 @@ import { UserContext } from "../../ContextApi/UserContext";
 
 const Home = () => {
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [contact, setContact] = useState(null);
   const [contactUser, setContactUser] = useState(false);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
     async function fetchContactList() {
-      await fetch(
-        "https://api-us.cometchat.io/v2.0/groups/supergroup/members",
-        {
-          method: "GET",
-          headers: {
-            appid: process.env.REACT_APP_Chat_App_Id,
-            apikey: process.env.REACT_APP_Chat_Api_Key,
-            "content-type": "application/json",
-            accept: "application/json",
-          },
-        }
-      )
+      await fetch(`https://api-us.cometchat.io/v2.0/users/anujmgr777/friends`, {
+        method: "GET",
+        headers: {
+          appId: process.env.REACT_APP_Chat_App_Id,
+          apiKey: process.env.REACT_APP_Chat_Api_Key,
+          "content-type": "application/json",
+          accept: "application/json",
+        },
+      })
         .then((res) => res.json())
         .then(
           (result) => {
-            if (result.data) {
-              setContact(result);
-            } else {
-              console.log("Loading");
-              setContact(null);
-            }
+            setContact(result);
+            setLoading(false);
           },
           (error) => {
             console.log(error);
@@ -41,6 +35,7 @@ const Home = () => {
           }
         );
     }
+
     fetchContactList();
   }, []);
   const getContactUser = (contUser) => {
@@ -51,7 +46,7 @@ const Home = () => {
     <React.Fragment>
       {!error ? (
         <StyleWrapper>
-          {contact ? (
+          {!loading ? (
             <ContactList getContactUser={getContactUser} contacts={contact} />
           ) : (
             <h6>Loading...</h6>

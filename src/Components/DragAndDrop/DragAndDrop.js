@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 import {
@@ -15,7 +15,7 @@ import {
 
 import { StyleSecondaryButton } from "../../Style";
 
-function DragAndDrop(props) {
+function DragAndDrop({toggleFileUpload}) {
   const [files, setFiles] = useState([]);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -37,6 +37,25 @@ function DragAndDrop(props) {
     setFiles(files.filter((file, index) => index !== deleteFile));
   };
 
+  function useOuterClick(callback) {
+    const callbackRef = useRef(); // initialize mutable callback ref
+    const innerRef = useRef(); // returned to client, who sets the "border" element
+  
+    // update callback on each render, so second useEffect has most recent callback
+    useEffect(() => { callbackRef.current = callback; });
+    useEffect(() => {
+      document.addEventListener("click", handleClick);
+      return () => document.removeEventListener("click", handleClick);
+      function handleClick(e) {
+        if (innerRef.current && callbackRef.current && 
+          !innerRef.current.contains(e.target)
+        ) callbackRef.current(e);
+      }
+    }, []); // no dependencies -> stable click listener
+        
+    return innerRef; // convenience for client (doesn't need to init ref himself) 
+  }
+
   const thumbs = files.map((file, index) => (
     <StyleThumb key={file.name}>
       <StyleThumbInner onClick={() => handleDelete(index)}>
@@ -56,14 +75,19 @@ function DragAndDrop(props) {
     [files]
   );
 
+  const innerRef = useOuterClick(e => {
+    toggleFileUpload()
+  });
+
   return (
-    <StyleWrapper>
+    <StyleWrapper ref={innerRef}>
       <StyleHeader>
-        <span onClick={() => props.toggleFileUpload()}>
-          <i className="ti-close right-side-toggle"></i>
-        </span>
         <p>PREVIEW </p>
-        <div>dfd</div>
+        <span onClick={() => toggleFileUpload()}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+  <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
+</svg>
+        </span>
       </StyleHeader>
 
       <StyleContainer>
