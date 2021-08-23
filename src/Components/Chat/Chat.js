@@ -4,17 +4,15 @@ import { StyleChatContainer } from "./style";
 import ChatHeader from "./ChatHeader";
 import ChatBody from "./ChatBody";
 
-const Chat = (props) => {
+const Chat = ({ contactUser }) => {
   return (
     <StyleChatContainer>
-      <ChatHeader
-        contactName={props.contactUser.name}
-        avtar={props.contactUser.avatar}
-      />
+      <ChatHeader contactName={contactUser.name} avtar={contactUser.avatar} />
 
       <ChatBody
-        userName={props.contactUser.name}
-        contactUserId={props.contactUser.uid}
+        userName={contactUser.name}
+        contactUserId={contactUser.uid}
+        contactUserAvatar={contactUser.avatar}
       />
     </StyleChatContainer>
   );

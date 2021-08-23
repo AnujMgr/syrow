@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleMessageBoxContainer } from "./style";
 import { StylePrimaryButton } from "../../Style";
+import moment from "moment";
 
 const MessageBox = (props) => {
   const [value, setValue] = useState("");
@@ -9,9 +10,9 @@ const MessageBox = (props) => {
     setValue(event.target.value);
   };
 
-  const sendMessage = (event, message, uid) => {
+  const sendMessage = (event, message, uid, currentUserId) => {
     event.preventDefault();
-    const url = "https://api-us.cometchat.io/v2.0/users/anujmgr777/messages";
+    const url = `https://api-us.cometchat.io/v2.0/users/${currentUserId}/messages`;
     const options = {
       method: "POST",
       headers: {
@@ -50,16 +51,28 @@ const MessageBox = (props) => {
         onChange={(event) => handleChange(event)}
         onKeyPress={(event) => {
           if (event.key === "Enter") {
-            sendMessage(event, value, props.toBeSendId);
+            sendMessage(event, value, props.toBeSendId, props.currentUserId);
             setValue("");
+            props.sentMessage({
+              message: value,
+              sender: props.currentUserId,
+              receiver: props.toBeSendId,
+              sentAt: moment().unix(),
+            });
           }
         }}
       />
 
       <StylePrimaryButton
         onClick={(event) => {
-          sendMessage(event, value, props.toBeSendId);
+          sendMessage(event, value, props.toBeSendId, props.currentUserId);
           setValue("");
+          props.sentMessage({
+            message: value,
+            sender: props.currentUserId,
+            receiver: props.toBeSendId,
+            sentAt: moment().unix(),
+          });
         }}
       >
         <i className="fa fa-paper-plane-o font-24"></i>
